@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Nri0CNVc9fI7HbMRTU3swcNzwv9tJZZ2PtA9t2SqZxzGgGmn7pd30XciCaMzVeo/9TQkMXEwen22hazPzQ7LNA==",
+  "dgSpecHash": "wj3RbkNzKZiBepfK9O14fG0jGvz4GyaT1LSuYFeEJJC/AoH8jAJ31882dwEgReVd1/gBOBVSdoyxs8Crmw+zCw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\dudin\\Desktop\\учеба\\Ларионов\\апишка и все такое\\projectAPI\\BusinessLogic.Testt\\BusinessLogic.Testt.csproj",
+  "projectFilePath": "C:\\Users\\dudin\\OneDrive\\Документы\\project\\BusinessLogic.Testt\\BusinessLogic.Testt.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dudin\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
     "C:\\Users\\dudin\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",

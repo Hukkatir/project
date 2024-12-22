@@ -46,11 +46,11 @@ namespace projectAPI
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "���� ��� ��������� ������� API",
-                    Description = "����� �� ������ �� �������, �� ������ �����������",
+                    Title = "API",
+                    Description = "Что-то",
                     Contact = new OpenApiContact
                     {
-                        Name = "���������",
+                        Name = "Лучшая версия меня",
                         Url = new Uri("https://www.kinopoisk.ru/")
                     }
                 });

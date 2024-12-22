@@ -7522,11 +7522,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dudin\\Desktop\\учеба\\Ларионов\\апишка и все такое\\projectAPI\\BusinessLogic.Testt\\BusinessLogic.Testt.csproj",
+      "projectUniqueName": "C:\\Users\\dudin\\OneDrive\\Документы\\project\\BusinessLogic.Testt\\BusinessLogic.Testt.csproj",
       "projectName": "BusinessLogic.Testt",
-      "projectPath": "C:\\Users\\dudin\\Desktop\\учеба\\Ларионов\\апишка и все такое\\projectAPI\\BusinessLogic.Testt\\BusinessLogic.Testt.csproj",
+      "projectPath": "C:\\Users\\dudin\\OneDrive\\Документы\\project\\BusinessLogic.Testt\\BusinessLogic.Testt.csproj",
       "packagesPath": "C:\\Users\\dudin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dudin\\Desktop\\учеба\\Ларионов\\апишка и все такое\\projectAPI\\BusinessLogic.Testt\\obj\\",
+      "outputPath": "C:\\Users\\dudin\\OneDrive\\Документы\\project\\BusinessLogic.Testt\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -7547,8 +7547,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\dudin\\Desktop\\учеба\\Ларионов\\апишка и все такое\\projectAPI\\BusinessLogic\\BusinessLogic.csproj": {
-              "projectPath": "C:\\Users\\dudin\\Desktop\\учеба\\Ларионов\\апишка и все такое\\projectAPI\\BusinessLogic\\BusinessLogic.csproj"
+            "C:\\Users\\dudin\\OneDrive\\Документы\\project\\BusinessLogic\\BusinessLogic.csproj": {
+              "projectPath": "C:\\Users\\dudin\\OneDrive\\Документы\\project\\BusinessLogic\\BusinessLogic.csproj"
             }
           }
         }
