@@ -9,13 +9,11 @@ namespace Domain.Models
         public int CommentId { get; set; }
         public int UserId { get; set; }
         public int Rating { get; set; }
-        public DateTime CreatedDateTime { get; set; } = DateTime.Now;
+        public DateTime CreatedDateTime { get; set; }
         public DateTime? UpdatedDateTime { get; set; }
         public DateTime? DeletedDateTime { get; set; }
 
-        public virtual User User { get; set; } = null!;
         public virtual Comment Comment { get; set; } = null!;
-
-
+        public virtual User User { get; set; } = null!;
     }
 }

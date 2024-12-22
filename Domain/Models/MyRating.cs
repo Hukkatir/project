@@ -9,7 +9,7 @@ namespace Domain.Models
         public int UserId { get; set; }
         public int MediaId { get; set; }
         public int Rating { get; set; }
-        public DateTime CreatedDateTime { get; set; } = DateTime.Now;
+        public DateTime CreatedDateTime { get; set; }
         public DateTime? UpdatedDateTime { get; set; }
         public DateTime? DeletedDateTime { get; set; }
 

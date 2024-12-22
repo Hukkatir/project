@@ -15,7 +15,7 @@ namespace DataAccess.Migrations
                 {
                     CategoryContentID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false)
+                    CategoryName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,7 +27,7 @@ namespace DataAccess.Migrations
                 columns: table => new
                 {
                     CategoryFileID = table.Column<int>(type: "int", nullable: false),
-                    CategoryFileName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false)
+                    CategoryFileName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,7 +40,7 @@ namespace DataAccess.Migrations
                 {
                     GenreID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GenreName = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false)
+                    GenreName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,8 +52,8 @@ namespace DataAccess.Migrations
                 columns: table => new
                 {
                     GroupID = table.Column<int>(type: "int", nullable: false),
-                    GroupName = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
-                    GroupDescrip = table.Column<string>(type: "varchar(1000)", unicode: false, maxLength: 1000, nullable: false)
+                    GroupName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    GroupDescrip = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -78,7 +78,7 @@ namespace DataAccess.Migrations
                 columns: table => new
                 {
                     PaymentID = table.Column<int>(type: "int", nullable: false),
-                    CardNumber = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
+                    CardNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CVV = table.Column<string>(type: "char(3)", unicode: false, fixedLength: true, maxLength: 3, nullable: false),
                     Date = table.Column<DateTime>(type: "date", nullable: false)
                 },
@@ -106,7 +106,7 @@ namespace DataAccess.Migrations
                 {
                     StatusMessageID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StatusMessageName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false)
+                    StatusMessageName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,11 +120,11 @@ namespace DataAccess.Migrations
                     UserID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleID = table.Column<int>(type: "int", nullable: false),
-                    Username = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
-                    UserPassword = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
-                    Email = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
-                    FirstName = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
-                    LastName = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    UserPassword = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "date", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "(getdate())"),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
@@ -149,7 +149,7 @@ namespace DataAccess.Migrations
                     CommentID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
-                    CommentText = table.Column<string>(type: "varchar(1000)", unicode: false, maxLength: 1000, nullable: false),
+                    CommentText = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "(getdate())"),
                     UpdatedDateTime = table.Column<DateTime>(type: "datetime", nullable: true),
                     DeletedDateTime = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -170,8 +170,8 @@ namespace DataAccess.Migrations
                 {
                     FileID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FileName = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
-                    FileURL = table.Column<string>(type: "varchar(500)", unicode: false, maxLength: 500, nullable: false),
+                    FileName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    FileURL = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     CategoryFileID = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "(getdate())"),
@@ -211,9 +211,9 @@ namespace DataAccess.Migrations
                 {
                     MediaID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     ReleaseDate = table.Column<DateTime>(type: "date", nullable: false),
-                    Plot = table.Column<string>(type: "varchar(1500)", unicode: false, maxLength: 1500, nullable: false),
+                    Plot = table.Column<string>(type: "nvarchar(1500)", maxLength: 1500, nullable: false),
                     Runtime = table.Column<int>(type: "int", nullable: false),
                     IMDbRating = table.Column<decimal>(type: "decimal(2,1)", nullable: true),
                     Season = table.Column<int>(type: "int", nullable: true),
@@ -278,7 +278,7 @@ namespace DataAccess.Migrations
                 name: "CommentRates",
                 columns: table => new
                 {
-                    CommentRateId = table.Column<int>(type: "int", nullable: false)
+                    CommentRateID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CommentID = table.Column<int>(type: "int", nullable: false),
                     UserID = table.Column<int>(type: "int", nullable: false),
@@ -289,14 +289,14 @@ namespace DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CommentRates", x => x.CommentRateId);
+                    table.PrimaryKey("PK_CommentRates", x => x.CommentRateID);
                     table.ForeignKey(
                         name: "FK__CommentRa__UserI__6C190EBB",
                         column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "UserID");
                     table.ForeignKey(
-                        name: "FK_CommentRates_Comments_CommentID",
+                        name: "FK_CommentRates_Comments",
                         column: x => x.CommentID,
                         principalTable: "Comments",
                         principalColumn: "CommentID",
@@ -334,7 +334,7 @@ namespace DataAccess.Migrations
                     AuthorID = table.Column<int>(type: "int", nullable: false),
                     MediaID = table.Column<int>(type: "int", nullable: false),
                     CategoryContentID = table.Column<int>(type: "int", nullable: false),
-                    Title = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     ContentText = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "(getdate())"),
@@ -380,7 +380,7 @@ namespace DataAccess.Migrations
                     MediaFileID = table.Column<int>(type: "int", nullable: false),
                     MediaID = table.Column<int>(type: "int", nullable: false),
                     FileID = table.Column<int>(type: "int", nullable: false),
-                    MediaFileName = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false)
+                    MediaFileName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -474,7 +474,7 @@ namespace DataAccess.Migrations
                 columns: table => new
                 {
                     RoomID = table.Column<int>(type: "int", nullable: false),
-                    RoomName = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
+                    RoomName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     MediaID = table.Column<int>(type: "int", nullable: false),
                     CreatorID = table.Column<int>(type: "int", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "datetime", nullable: false),
@@ -511,7 +511,7 @@ namespace DataAccess.Migrations
                     RoomID = table.Column<int>(type: "int", nullable: false),
                     StatusMessageID = table.Column<int>(type: "int", nullable: false),
                     SendingDate = table.Column<DateTime>(type: "datetime", nullable: false),
-                    MessageText = table.Column<string>(type: "varchar(500)", unicode: false, maxLength: 500, nullable: false),
+                    MessageText = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     UpdatedDateTime = table.Column<DateTime>(type: "datetime", nullable: true),
                     DeletedBy = table.Column<int>(type: "int", nullable: true),
                     DeletedDateTime = table.Column<DateTime>(type: "datetime", nullable: true)

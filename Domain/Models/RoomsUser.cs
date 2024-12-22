@@ -5,7 +5,7 @@ namespace Domain.Models
 {
     public partial class RoomsUser
     {
-        public DateTime JoinedDateTime { get; set; } = DateTime.Now;
+        public DateTime JoinedDateTime { get; set; }
         public int RoomId { get; set; }
         public int UserId { get; set; }
 

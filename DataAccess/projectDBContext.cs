@@ -37,6 +37,14 @@ namespace Domain.Models
         public virtual DbSet<StatusMessage> StatusMessages { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=DESKTOP-CJMJ3I2;Database=projectDB; Trusted_Connection = True;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,9 +54,7 @@ namespace Domain.Models
 
                 entity.Property(e => e.CategoryContentId).HasColumnName("CategoryContentID");
 
-                entity.Property(e => e.CategoryName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.CategoryName).HasMaxLength(50);
             });
 
             modelBuilder.Entity<CategoryFile>(entity =>
@@ -59,18 +65,14 @@ namespace Domain.Models
                     .ValueGeneratedNever()
                     .HasColumnName("CategoryFileID");
 
-                entity.Property(e => e.CategoryFileName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.CategoryFileName).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Comment>(entity =>
             {
                 entity.Property(e => e.CommentId).HasColumnName("CommentID");
 
-                entity.Property(e => e.CommentText)
-                    .HasMaxLength(1000)
-                    .IsUnicode(false);
+                entity.Property(e => e.CommentText).HasMaxLength(1000);
 
                 entity.Property(e => e.CreatedDateTime)
                     .HasColumnType("datetime")
@@ -91,7 +93,7 @@ namespace Domain.Models
 
             modelBuilder.Entity<CommentRate>(entity =>
             {
-                entity.HasKey(e => e.CommentRateId);
+                entity.Property(e => e.CommentRateId).HasColumnName("CommentRateID");
 
                 entity.Property(e => e.CommentId).HasColumnName("CommentID");
 
@@ -105,8 +107,13 @@ namespace Domain.Models
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
+                entity.HasOne(d => d.Comment)
+                    .WithMany(p => p.CommentRates)
+                    .HasForeignKey(d => d.CommentId)
+                    .HasConstraintName("FK_CommentRates_Comments");
+
                 entity.HasOne(d => d.User)
-                    .WithMany()
+                    .WithMany(p => p.CommentRates)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__CommentRa__UserI__6C190EBB");
@@ -134,9 +141,7 @@ namespace Domain.Models
 
                 entity.Property(e => e.MediaId).HasColumnName("MediaID");
 
-                entity.Property(e => e.Title)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.Title).HasMaxLength(255);
 
                 entity.Property(e => e.UpdatedDateTime).HasColumnType("datetime");
 
@@ -183,13 +188,10 @@ namespace Domain.Models
 
                 entity.Property(e => e.DeletedDateTime).HasColumnType("datetime");
 
-                entity.Property(e => e.FileName)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.FileName).HasMaxLength(100);
 
                 entity.Property(e => e.FileUrl)
                     .HasMaxLength(500)
-                    .IsUnicode(false)
                     .HasColumnName("FileURL");
 
                 entity.Property(e => e.UpdatedDateTime).HasColumnType("datetime");
@@ -221,9 +223,7 @@ namespace Domain.Models
             {
                 entity.Property(e => e.GenreId).HasColumnName("GenreID");
 
-                entity.Property(e => e.GenreName)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.GenreName).HasMaxLength(255);
             });
 
             modelBuilder.Entity<GroupMedium>(entity =>
@@ -234,13 +234,9 @@ namespace Domain.Models
                     .ValueGeneratedNever()
                     .HasColumnName("GroupID");
 
-                entity.Property(e => e.GroupDescrip)
-                    .HasMaxLength(1000)
-                    .IsUnicode(false);
+                entity.Property(e => e.GroupDescrip).HasMaxLength(1000);
 
-                entity.Property(e => e.GroupName)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.GroupName).HasMaxLength(100);
 
                 entity.HasMany(d => d.Media)
                     .WithMany(p => p.Groups)
@@ -273,9 +269,7 @@ namespace Domain.Models
 
                 entity.Property(e => e.FileId).HasColumnName("FileID");
 
-                entity.Property(e => e.MediaFileName)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.MediaFileName).HasMaxLength(100);
 
                 entity.HasOne(d => d.File)
                     .WithMany(p => p.MediaFiles)
@@ -318,15 +312,11 @@ namespace Domain.Models
 
                 entity.Property(e => e.MediaTypeId).HasColumnName("MediaTypeID");
 
-                entity.Property(e => e.Plot)
-                    .HasMaxLength(1500)
-                    .IsUnicode(false);
+                entity.Property(e => e.Plot).HasMaxLength(1500);
 
                 entity.Property(e => e.ReleaseDate).HasColumnType("date");
 
-                entity.Property(e => e.Title)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.Title).HasMaxLength(255);
 
                 entity.Property(e => e.UpdatedDateTime).HasColumnType("datetime");
 
@@ -398,9 +388,7 @@ namespace Domain.Models
 
                 entity.Property(e => e.DeletedDateTime).HasColumnType("datetime");
 
-                entity.Property(e => e.MessageText)
-                    .HasMaxLength(500)
-                    .IsUnicode(false);
+                entity.Property(e => e.MessageText).HasMaxLength(500);
 
                 entity.Property(e => e.RoomId).HasColumnName("RoomID");
 
@@ -476,9 +464,7 @@ namespace Domain.Models
                     .ValueGeneratedNever()
                     .HasColumnName("PaymentID");
 
-                entity.Property(e => e.CardNumber)
-                    .HasMaxLength(16)
-                    .IsUnicode(false);
+                entity.Property(e => e.CardNumber).HasMaxLength(50);
 
                 entity.Property(e => e.Cvv)
                     .HasMaxLength(3)
@@ -536,9 +522,7 @@ namespace Domain.Models
 
                 entity.Property(e => e.MediaId).HasColumnName("MediaID");
 
-                entity.Property(e => e.RoomName)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.RoomName).HasMaxLength(100);
 
                 entity.HasOne(d => d.Creator)
                     .WithMany(p => p.RoomCreators)
@@ -587,9 +571,7 @@ namespace Domain.Models
 
                 entity.Property(e => e.StatusMessageId).HasColumnName("StatusMessageID");
 
-                entity.Property(e => e.StatusMessageName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.StatusMessageName).HasMaxLength(50);
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -610,29 +592,19 @@ namespace Domain.Models
 
                 entity.Property(e => e.DeletedDateTime).HasColumnType("datetime");
 
-                entity.Property(e => e.Email)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.Email).HasMaxLength(255);
 
-                entity.Property(e => e.FirstName)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.FirstName).HasMaxLength(100);
 
-                entity.Property(e => e.LastName)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.LastName).HasMaxLength(100);
 
                 entity.Property(e => e.RoleId).HasColumnName("RoleID");
 
                 entity.Property(e => e.UpdatedDateTime).HasColumnType("datetime");
 
-                entity.Property(e => e.UserPassword)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.UserPassword).HasMaxLength(255);
 
-                entity.Property(e => e.Username)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.Username).HasMaxLength(100);
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Users)

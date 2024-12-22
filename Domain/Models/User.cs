@@ -7,6 +7,7 @@ namespace Domain.Models
     {
         public User()
         {
+            CommentRates = new HashSet<CommentRate>();
             Comments = new HashSet<Comment>();
             ContentCreatedByNavigations = new HashSet<Content>();
             ContentDeletedByNavigations = new HashSet<Content>();
@@ -34,13 +35,14 @@ namespace Domain.Models
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
         public DateTime DateOfBirth { get; set; }
-        public DateTime CreatedDateTime { get; set; } = DateTime.Now;
+        public DateTime CreatedDateTime { get; set; }
         public int? UpdatedBy { get; set; }
         public DateTime? UpdatedDateTime { get; set; }
         public int? DeletedBy { get; set; }
         public DateTime? DeletedDateTime { get; set; }
 
         public virtual Role Role { get; set; } = null!;
+        public virtual ICollection<CommentRate> CommentRates { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Content> ContentCreatedByNavigations { get; set; }
         public virtual ICollection<Content> ContentDeletedByNavigations { get; set; }

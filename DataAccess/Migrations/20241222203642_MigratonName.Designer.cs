@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(projectDBContext))]
-    [Migration("20241222192502_MigratonName")]
+    [Migration("20241222203642_MigratonName")]
     partial class MigratonName
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,8 +54,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("CategoryName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("CategoryContentId");
 
@@ -71,8 +70,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("CategoryFileName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("CategoryFileId");
 
@@ -91,8 +89,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("CommentText")
                         .IsRequired()
                         .HasMaxLength(1000)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(1000)");
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
@@ -120,7 +117,8 @@ namespace DataAccess.Migrations
                 {
                     b.Property<int>("CommentRateId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("CommentRateID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentRateId"), 1L, 1);
 
@@ -198,8 +196,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -252,14 +249,12 @@ namespace DataAccess.Migrations
                     b.Property<string>("FileName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("FileUrl")
                         .IsRequired()
                         .HasMaxLength(500)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(500)")
+                        .HasColumnType("nvarchar(500)")
                         .HasColumnName("FileURL");
 
                     b.Property<int?>("UpdatedBy")
@@ -293,8 +288,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("GenreName")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("GenreId");
 
@@ -310,14 +304,12 @@ namespace DataAccess.Migrations
                     b.Property<string>("GroupDescrip")
                         .IsRequired()
                         .HasMaxLength(1000)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(1000)");
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("GroupName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("GroupId");
 
@@ -341,8 +333,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("MediaFileName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("MediaId", "MediaFileId", "FileId")
                         .HasName("PK__MoviesFi__54324C2672BE071C");
@@ -409,8 +400,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("Plot")
                         .IsRequired()
                         .HasMaxLength(1500)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(1500)");
+                        .HasColumnType("nvarchar(1500)");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("date");
@@ -424,8 +414,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -465,8 +454,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("MessageText")
                         .IsRequired()
                         .HasMaxLength(500)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(500)");
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int")
@@ -549,9 +537,8 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("CardNumber")
                         .IsRequired()
-                        .HasMaxLength(16)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(16)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Cvv")
                         .IsRequired()
@@ -638,8 +625,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("RoomName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("RoomId");
 
@@ -684,8 +670,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("StatusMessageName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("StatusMessageId");
 
@@ -718,20 +703,17 @@ namespace DataAccess.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int")
@@ -746,14 +728,12 @@ namespace DataAccess.Migrations
                     b.Property<string>("UserPassword")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("UserId");
 
@@ -832,13 +812,14 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.Models.CommentRate", b =>
                 {
                     b.HasOne("Domain.Models.Comment", "Comment")
-                        .WithMany()
+                        .WithMany("CommentRates")
                         .HasForeignKey("CommentId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_CommentRates_Comments");
 
                     b.HasOne("Domain.Models.User", "User")
-                        .WithMany()
+                        .WithMany("CommentRates")
                         .HasForeignKey("UserId")
                         .IsRequired()
                         .HasConstraintName("FK__CommentRa__UserI__6C190EBB");
@@ -1142,6 +1123,11 @@ namespace DataAccess.Migrations
                     b.Navigation("Files");
                 });
 
+            modelBuilder.Entity("Domain.Models.Comment", b =>
+                {
+                    b.Navigation("CommentRates");
+                });
+
             modelBuilder.Entity("Domain.Models.File", b =>
                 {
                     b.Navigation("MediaFiles");
@@ -1187,6 +1173,8 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.User", b =>
                 {
+                    b.Navigation("CommentRates");
+
                     b.Navigation("Comments");
 
                     b.Navigation("ContentCreatedByNavigations");

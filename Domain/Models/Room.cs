@@ -15,7 +15,7 @@ namespace Domain.Models
         public string RoomName { get; set; } = null!;
         public int MediaId { get; set; }
         public int CreatorId { get; set; }
-        public DateTime CreatedDateTime { get; set; } = DateTime.Now;
+        public DateTime CreatedDateTime { get; set; }
         public int? DeletedBy { get; set; }
         public string? DeletedDateTime { get; set; }
 
