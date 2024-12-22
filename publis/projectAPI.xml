@@ -1,0 +1,863 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>projectAPI</name>
+    </assembly>
+    <members>
+        <member name="M:projectAPI.Controllers.CommentController.GetAll">
+            <summary>
+            Получение всех комментариев
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.CommentController.GetById(System.Int32)">
+            <summary>
+            Получение информации о комментарии по id
+            </summary>
+            <param name="id">Идентификатор комментария</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.CommentController.Add(projectAPI.Contracts.Comment.CreateCommentRequest)">
+            <summary>
+            Создание нового комментария 
+            </summary>
+            <remarks>
+            Пример запроса:
+            
+                POST /Todo
+                {
+                    "userId": 10,
+                    "commentText": "Супер важный комменитарий"
+                }
+                
+            </remarks>
+            <param name="comment">Комментарий</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.CommentController.Update(projectAPI.Contracts.Comment.GetCommentResponse)">
+            <summary>
+            Изменение информации комментария 
+            </summary>
+            <remarks>
+            Пример запроса:
+            
+                PUT /Todo
+                {
+                    "userId": 10,
+                    "commentText": "Не осчень важный комментарий", 
+                    "createdDateTime": "2024-10-23T11:03:05.104Z"
+                    "updatedDateTime": "2024-10-23T13:13:05.104Z",
+                    "deletedDateTime": null
+                }
+                
+            </remarks>
+            <param name="comment">Комментарий</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.CommentController.Delete(System.Int32)">
+            <summary>
+            Удаление комментария
+            </summary>
+            <param name="id">Идентификатор комментария</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.CommentRateController.GetAll">
+            <summary>
+            Полученне информации о всех оценках с комментариями
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.CommentRateController.GetById(System.Int32)">
+            <summary>
+            Получение информации об оценке по id
+            </summary>
+            <param name="id">Идентификатор оценки</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.CommentRateController.Add(projectAPI.Contracts.CommentRate.CreateCommentRateRequest)">
+            <summary>
+            Создание новой оценки с комментарием
+            </summary>
+            <remarks>
+            Пример запроса: 
+                
+                POST /Todo
+                {
+                    "commentId": 10,
+                    "userId": 5,
+                    "rating": 7
+                   
+                }
+                
+            </remarks>
+            <param name="commentRate">Оценка</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.CommentRateController.Update(projectAPI.Contracts.CommentRate.GetCommentRateResponse)">
+            <summary>
+            Изменение информации оценки
+            </summary>
+            <remarks>
+            Пример запроса: 
+                
+                POST /Todo
+                {
+                    "commentId": 10,
+                    "userId": 5,
+                    "rating": 10
+                }
+                
+            </remarks>
+            <param name="commentRate">Оценка</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.CommentRateController.Delete(System.Int32)">
+            <summary>
+            Удаление оценки
+            </summary>
+            <param name="id">Идентификатор оценки</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.ContentController.GetAll">
+            <summary>
+            Получение всего контента
+            </summary>
+        </member>
+        <member name="M:projectAPI.Controllers.ContentController.GetById(System.Int32)">
+            <summary>
+            Получение контента по id
+            </summary>
+            <param name="id">Идентификатор контента</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.ContentController.Add(projectAPI.Contracts.Content.CreateContentRequest)">
+            <summary>
+            Создание нового контента
+            </summary>
+            <remarks>
+            Пример запроса:
+            
+                POST /Todo
+                {
+                    "authorId": 5, 
+                    "mediaId": 10,
+                    "categoryContentId": 3,
+                    "title": "Провал Джокера 2",
+                    "contentText": "В мировом прокате с оглушительным треском продолжает проваливаться «Джокер: Безумие на двоих». Продолжение хитового фильма 2019 года, который взял «Золотого льва» на Венецианском фестивале, а затем принес оскаровскую статуэтку Хоакину Фениксу, здорово разозлило фанатов и разочаровало критиков. Но все это часть плана Тодда Филлипса, который сам выступил в роли Джокера и провернул беспрецедентную акцию по уничтожению кинокомикса. Может, пора объяснить, почему «Безумие на двоих» вызывает восхищение несмотря ни на что?",
+                    "createdBy": 1
+                }
+                
+            </remarks>
+            <param name="content">Rонтент</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.ContentController.Update(projectAPI.Contracts.Content.GetContentResponse)">
+            <summary>
+            Изменение информации о контенте 
+            </summary>
+            <remarks>
+            Пример запроса:
+            
+                PUT /Todo
+                {
+                    "authorId": 5, 
+                    "mediaId": 10,
+                    "categoryContentId": 3,
+                    "title": "Вы не поймете! Почему сиквел «Джокера» — главный поп-культурный феномен года",
+                    "contentText": "В мировом прокате с оглушительным треском продолжает проваливаться «Джокер: Безумие на двоих». Продолжение хитового фильма 2019 года, который взял «Золотого льва» на Венецианском фестивале, а затем принес оскаровскую статуэтку Хоакину Фениксу, здорово разозлило фанатов и разочаровало критиков. Но все это часть плана Тодда Филлипса, который сам выступил в роли Джокера и провернул беспрецедентную акцию по уничтожению кинокомикса. Может, пора объяснить, почему «Безумие на двоих» вызывает восхищение несмотря ни на что?",
+                    "createdBy": 1,
+                    "createdDateTime": "2024-10-10T09:30:58.178Z",
+                    "updatedBy": 2,
+                    "updatedDateTime": "2024-11-01T09:32:18.238Z",
+                    "deletedBy": 10,
+                    "deletedDateTime": null
+                }
+              
+            </remarks>
+            <param name="content">Контент</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.ContentController.Delete(System.Int32)">
+            <summary>
+            Удаление контента по id
+            </summary>
+            <param name="id">Идентификатор контента</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.FileController.GetAll">
+            <summary>
+            Получение всех файлов
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.FileController.GetById(System.Int32)">
+            <summary>
+            Получение информации о файле по id
+            </summary>
+            <param name="id">Идентификатор файла</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.FileController.Add(projectAPI.Contracts.File.CreateFileRequest)">
+            <summary>
+            Создание нового файла 
+            </summary>
+            <remarks>
+            Пример запроса:
+                
+                POST /Todo
+                {
+                    "fileName": "9-1-1 s08e01",
+                    "fileUrl": "https://hdrezka1twwpb.org/series/drama/26609-911-sluzhba-spaseniya-2018.html#t:35-s:8-e:1",
+                    "categoryFileId": 1,
+                    "createdBy": 5
+                }
+                
+            </remarks>
+            <param name="f">Файл</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.FileController.Update(projectAPI.Contracts.File.GetFileResponse)">
+            <summary>
+            Изменение информации о файле 
+            </summary>
+            <remarks>
+            Пример запроса:
+                
+                PUT /Todo
+                {
+                    "fileName": "9-1-1 s08e01",
+                    "fileUrl": "https://hdrezka.org/series/drama/26609-911-sluzhba-spaseniya-2018.html#t:35-s:8-e:1",
+                    "categoryFileId": 1,
+                    "createdBy": 5,
+                    "createdDateTime": "2024-10-23T10:21:54.302Z",
+                    "updatedBy": 10,
+                    "updatedDateTime": "2024-11-23T10:21:54.302Z"
+                }
+                
+            </remarks>
+            <param name="f">Файл</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.FileController.Delete(System.Int32)">
+            <summary>
+            Удаление файла
+            </summary>
+            <param name="id">Идентификатор файла</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.GroupMediumController.GetAll">
+            <summary>
+            Получение информации о всех группах 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.GroupMediumController.GetById(System.Int32)">
+            <summary>
+            Получение информации о группе по id
+            </summary>
+            <param name="id">Идентификатор группы</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.GroupMediumController.Add(projectAPI.Contracts.GroupMedium.CreateGroupMediumRequest)">
+            <summary>
+            Создание новой группы 
+            </summary>
+            <remarks>
+            Пример запроса:
+            
+                POST /Todo
+                {
+                    "groupName": "9-1-1 1 сезон",
+                    "groupDescrip": "Сериал расскажет о работе полицейских, «Скорой помощи» и пожарной службы. Все они выполняют свой долг, часто рискуя жизнью и попадая в самые пугающие и шокирующие ситуации. Смысл их ежедневной работы состоит в охране безопасности улиц и помощи всем, кто в ней нуждается."
+                }
+            
+            </remarks>
+            <param name="GroupMedium">Группа</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.GroupMediumController.Update(projectAPI.Contracts.GroupMedium.GetGroupMediumResponse)">
+            <summary>
+            Изменение информации о группе
+            </summary>
+            <remarks>
+            Пример запроса: 
+                
+                PUT /Todo
+                {
+                    "groupName": "9-1-1 1 сезон",
+                    "groupDescrip": "Сериал расскажет о работе полицейских, «Скорой помощи» и пожарной службы. Все они выполняют свой долг, часто рискуя жизнью и попадая в самые пугающие и шокирующие ситуации. Смысл их ежедневной работы состоит в охране безопасности улиц и помощи всем, кто в ней нуждается."
+                   
+                }
+                
+            </remarks>
+            <param name="GroupMedium">Группа</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.GroupMediumController.Delete(System.Int32)">
+            <summary>
+            Удаление группы
+            </summary>
+            <param name="id">Идентификатор группы</param>
+            <returns></returns>
+        </member>
+        <member name="T:projectAPI.Controllers.MediaFileController">
+            <summary>
+            Контроллер для управления медиафайлами
+            </summary>
+        </member>
+        <member name="M:projectAPI.Controllers.MediaFileController.GetAll">
+            <summary>
+            Получение информации о всех медиафайлах
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MediaFileController.GetById(System.Int32)">
+            <summary>
+            Получение медиафайла по id 
+            </summary>
+            <param name="id">Идентификатор медиафайла</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MediaFileController.Add(projectAPI.Contracts.MediaFile.CreateMediaFileRequest)">
+            <summary>
+            Добавление нового медиафайла
+            </summary>
+            <remarks>
+            Пример запроса:
+                
+                POST /Todo
+                {
+                    "mediaId": 1,
+                    "fileId": 5,
+                    "mediaFileName": "9-1-1_s08e01"
+                }
+            
+            </remarks>
+            <param name="mediafile">Медиафайл</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MediaFileController.Update(projectAPI.Contracts.MediaFile.GetMediaFileResponse)">
+            <summary>
+            Изменение информации о медиофайле
+            </summary>
+            <remarks>
+            Пример запроса:
+                
+                PUT /Todo
+                {
+                    "mediaFileId": 5,
+                    "mediaId": 1,
+                    "fileId": 5,
+                    "mediaFileName": "9-1-1_s08e02"
+                }
+            
+            </remarks>
+            <param name="mediafile">Медиафайл</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MediaFileController.Delete(System.Int32)">
+            <summary>
+            Удаление медиафайла
+            </summary>
+            <param name="id">Идентификатор медиафайла</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MediumController.GetAll">
+            <summary>
+            Получение информации о всех медиа 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MediumController.GetById(System.Int32)">
+            <summary>
+            Получение информации о мадиа по id 
+            </summary>
+            <param name="id">Идентификатор медиа</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MediumController.Add(projectAPI.Contracts.MediaFile.CreateMediaFileRequest)">
+            <summary>
+            Создание нового медиа 
+            </summary>
+            <remarks>
+            Пример запроса:
+                
+                POST /Todo
+                {
+                    "mediaId": 10,
+                    "title": "Коралина в Стране Кошмаров",
+                    "releaseDate": "2009-02-05",
+                    "plot": "Маленькая Коралина попадает в другой мир, скрытый за секретной дверцей. Этот мир — ее альтернативная жизнь, которая не перестает ее радовать, все здесь хорошо, но только до поры до времени. Однажды она понимает, что ее настоящим родителям за ее проделки угрожает смертельная опасность.",
+                    "runtime": 100,
+                    "imdbRating": 7,8,
+                    "season": 0,
+                    "episode": 0,
+                    "mediaTypeId": 4,
+                    "createdBy": 1,
+                    "createdDateTime": "2024-10-22T09:28:57.804Z"
+                }
+            
+            </remarks>
+            <param name="medium">Медиа</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MediumController.Update(projectAPI.Contracts.Medium.GetMediumResponse)">
+            <summary>
+            Изменение информации о медиа 
+            </summary>
+            <remarks>
+            Пример запроса:
+                
+                POST /Todo
+                {
+                    "mediaId": 10,
+                    "title": "Коралина в Стране Кошмаров",
+                    "releaseDate": "2009-02-05",
+                    "plot": "Маленькая Коралина попадает в другой мир, скрытый за секретной дверцей. Этот мир — ее альтернативная жизнь, которая не перестает ее радовать, все здесь хорошо, но только до поры до времени. Однажды она понимает, что ее настоящим родителям за ее проделки угрожает смертельная опасность.",
+                    "runtime": 100,
+                    "imdbRating": 9,
+                    "season": 0,
+                    "episode": 0,
+                    "mediaTypeId": 4,
+                    "createdBy": 1,
+                    "createdDateTime": "2024-10-22T09:28:57.804Z"
+                }
+            
+            </remarks>
+            <param name="medium">Медиа</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MediumController.Delete(System.Int32)">
+            <summary>
+            Удаление медиа
+            </summary>
+            <param name="id">Идентификатор медиа</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MessagesUserController.GetAll">
+            <summary>
+             Получение всех сообщений пользователей
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MessagesUserController.GetById(System.Int32)">
+            <summary>
+            Получение информации о сообщении по id
+            </summary>
+            <param name="id">Идентификатор сообщения</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MessagesUserController.Add(projectAPI.Contracts.MessagesUser.CreateMessagesUserRequest)">
+             <summary>
+             Создание нового сообщения
+             </summary>
+             <remarks>
+             Пример запроса:
+            
+                 POST /Todo
+                 {
+                   "userId": 10,
+                   "roomId": 6,
+                   "statusMessageId": 1,
+                   "messageText": "hello there!"
+                 }
+            
+             </remarks>
+             <param name="messagesUser">Сообщение</param>
+             <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MessagesUserController.Update(projectAPI.Contracts.MessagesUser.GetMessagesUserResponse)">
+             <summary>
+             Изменение информации о сообщении
+             </summary>
+             <remarks>
+             Пример запроса:
+            
+                 POST /Todo
+                 {
+                   "messageId": 50,
+                   "userId": 10,
+                   "roomId": 6,
+                   "statusMessageId": 1,
+                   "sendingDate": "2024-10-22T09:16:19.373Z",
+                   "messageText": "bye there!",
+                   "updatedDateTime": "2024-12-16T09:30:58.178Z",
+                 }
+            
+             </remarks>
+             <param name="messagesUser">Пользователь</param>
+             <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MessagesUserController.Delete(System.Int32)">
+            <summary>
+            Удаление сообщения 
+            </summary>
+            <param name="id">Идентификатор сообщения</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MyRatingController.GetAll">
+            <summary>
+            Получение информации о всех личных оценках
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MyRatingController.GetById(System.Int32)">
+            <summary>
+            Получение информации о оценках пользователя по id
+            </summary>
+            <param name="id">Идентификатор оценки</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MyRatingController.Add(projectAPI.Contracts.MyRating.CreateMyRatingRequest)">
+            <summary>
+            Создание новой личной оценки 
+            </summary>
+            <remarks>
+            Пример запроса:
+            
+                 POST /Todo
+                 {
+                     "ratingId": 6,
+                     "userId": 2, 
+                     "mediaId": 1,
+                     "rating": 10,
+                     "createdDateTime": "2024-10-22T09:07:05.
+                 }
+                 
+            </remarks>
+            <param name="myRating">Личная оценка</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.MyRatingController.Update(projectAPI.Contracts.MyRating.GetMyRatingResponse)">
+            <summary>
+            Изменение информации о личной оценке
+            </summary>
+            <remarks>
+            Пример запроса:
+            
+                 PUT /Todo
+                 {
+                     "ratingId": 6,
+                     "userId": 2, 
+                     "mediaId": 1,
+                     "rating": 1,
+                     "createdDateTime": "2024-10-22T10:07:05.
+                     "updatedDateTime": "2024-12-17T14:14:23.950Z" 
+                 }
+                 
+            </remarks>
+            <param name="myRating">Личная оценка</param>
+            <returns></returns>\
+        </member>
+        <member name="M:projectAPI.Controllers.MyRatingController.Delete(System.Int32)">
+            <summary>
+            Удаление личной оценки
+            </summary>
+            <param name="id">Идентификатор оценки</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.PaymentController.GetAll">
+            <summary>
+            Получение информации о всех картах
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.PaymentController.GetById(System.Int32)">
+            <summary>
+            Получение информации о карте по id
+            </summary>
+            <param name="id">Идентификатор карты</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.PaymentController.Add(projectAPI.Contracts.Payment.CreatePaymentRequest)">
+             <summary>
+             Создание новой карты
+             </summary>
+             <remarks>
+             Пример запроса:
+            
+                 POST /Todo
+                 {
+                   "cardNumber": "2200255555555555",
+                   "cvv": "871",
+                   "date": "2024-10-22"
+                 }
+            
+             </remarks>
+             <param name="payment">Карта</param>
+             <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.PaymentController.Update(projectAPI.Contracts.Payment.GetPaymentResponse)">
+             <summary>
+             Изменение информации о карте
+             </summary>
+             <remarks>
+             Пример запроса:
+            
+                 PUT /Todo
+                 {
+                   "idPayment": 5,
+                   "cardNumber": "2200255555555555",
+                   "cvv": "871",
+                   "date": "2027-10-22"
+                 }
+            
+             </remarks>
+             <param name="payment">Карта</param>
+             <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.PaymentController.Delete(System.Int32)">
+            <summary>
+            Удаление карты
+            </summary>
+            <param name="id">Идентификатор карты</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.PaymentUserController.GetAll">
+            <summary>
+            Получение информации о всех держателей карты 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.PaymentUserController.GetById(System.Int32,System.Int32)">
+            <summary>
+            Получение информации о картах пользователя по id 
+            </summary>
+            <param name="idPayment">Идентификатор карты</param>
+            <param name="idUser">Идентификатор пользователя</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.PaymentUserController.Add(projectAPI.Contracts.PaymentUser.CreatePaymentUserRequest)">
+             <summary>
+             Создание новых карт пользователю
+             </summary>
+             <remarks>
+             Пример запроса:
+            
+                 POST /Todo
+                 {
+                   "idPayment": 4,
+                   "idUser": 10,
+                   "isActive": true
+                 }
+            
+             </remarks>
+             <param name="paymentUser">Карты пользователя</param>
+             <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.PaymentUserController.Update(projectAPI.Contracts.PaymentUser.GetPaymentUserResponse)">
+             <summary>
+             Изменение информации о картах пользователя
+             </summary>
+             <remarks>
+             Пример запроса:
+            
+                 PUT /Todo
+                 {
+                   "idPayment": 4,
+                   "idUser": 10,
+                   "isActive": false
+                 }
+            
+             </remarks>
+             <param name="paymentUser">Карты пользователя</param>
+             <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.PaymentUserController.Delete(System.Int32,System.Int32)">
+            <summary>
+            Удаление карты пользователя
+            </summary>
+            <param name="idPayment">Идентификатор карты</param>
+            <param name="idUser">Идентификатор пользователя</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.RoomController.GetAll">
+            <summary>
+            Получение информации о всех комнатах 
+            </summary>
+            
+        </member>
+        <member name="M:projectAPI.Controllers.RoomController.GetById(System.Int32)">
+            <summary>
+            Получение информации о комнатах по id
+            </summary>
+            <param name="id">Идентификатор комнаты</param>
+        </member>
+        <member name="M:projectAPI.Controllers.RoomController.Add(projectAPI.Contracts.Room.CreateRoomRequest)">
+            <summary>
+            Создание новой комнаты
+            </summary>
+            <remarks>
+            Пример запроса:
+            
+                POST /Todo
+                {
+                    "roomName": "Крутая комната для просмотра аниме :)",
+                    "mediaId": 3,
+                    "creatorId": 1
+                }
+                
+            </remarks>
+            <param name="room">Комната</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.RoomController.Update(projectAPI.Contracts.Room.GetRoomResponse)">
+            <summary>
+            Изменение информации о комнате 
+            </summary>
+            <remarks>
+            Пример запроса:
+                
+                POST /Todo
+                {
+                    "roomId": 5,
+                    "roomName": "Не очень крутая комната для просмотра аниме :(",
+                    "mediaId": 3,
+                    "creatorId": 1
+                    "createdDateTime": "2024-10-21T12:46:44.000Z"
+                }
+                
+            </remarks>
+            <param name="room">Комната</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.RoomController.Delete(System.Int32)">
+            <summary>
+            Удаление комнаты
+            </summary>
+            <param name="id">Индентификатор комнаты</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.RoomsUserController.GetAll">
+            <summary>
+            Получение всех записей о присоединениях к комнатам
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.RoomsUserController.GetById(System.Int32,System.Int32)">
+            <summary>
+            Получение записи о присоеденении к комнате по id комнаты и id пользователя 
+            </summary>
+            <param name="idRoom">Идентификатор комнаты</param>
+            <param name="idUser">Идентификатор пользователя</param>
+            <returns>Данные о присоединении к комнате</returns>
+        </member>
+        <member name="M:projectAPI.Controllers.RoomsUserController.Add(projectAPI.Contracts.RoomsUser.CreateRoomsUserRequest)">
+             <summary>
+             Добавление присоединения нового пользователя к комнате 
+             </summary>
+             <remarks>
+             Пример запроса:
+             
+                 POST /Todo
+                 {
+                    "roomId": 15,
+                    "userId": 5
+                 }
+            
+             </remarks>
+             <param name="roomUser"></param>
+             <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.RoomsUserController.Update(projectAPI.Contracts.RoomsUser.GetRoomsUserResponse)">
+             <summary>
+             Обновление записи присоединения пользователя к комнате
+             </summary>
+             <remarks>
+             Пример запроса:
+             
+                 PUT /Todo
+                 {
+                    "joinedDateTime": "2024-10-11T12:31:58.873Z",
+                    "roomId": 15,
+                    "userId": 5
+                 }
+            
+             </remarks>
+             <param name="roomsUser"></param>
+             <returns></returns>
+             
+        </member>
+        <member name="M:projectAPI.Controllers.RoomsUserController.Delete(System.Int32,System.Int32)">
+            <summary>
+            Удаление данных присоединения пользователя к комнате
+            </summary>
+            <param name="idRoom">Идентификатор комнаты</param>
+            <param name="idUser">Идентификатор пользователя</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.UserController.GetAll">
+            <summary>
+            Получение всех записей пользователей
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.UserController.GetById(System.Int32)">
+            <summary>
+            Получение записи пользователя по id
+            </summary>
+            <param name="id">Идентификатор пользователя</param>
+            <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.UserController.Add(projectAPI.Contracts.User.CreateUserRequest)">
+             <summary>
+             Создание нового пользователя
+             </summary>
+             <remarks>
+             Пример запроса:
+            
+                 POST /Todo
+                 {
+                    {
+                         "roleId": 1,
+                         "username": "hukkatir",
+                         "roleId": 1,
+                         "username": "hukkatir",
+                         "userPassword": "Qwerty123!@#",
+                         "email": "hukkatir@gmail.com",
+                         "firstName": "Соня",
+                         "lastName": "Дудина"
+                     }  
+                 }
+            
+             </remarks>
+             <param name="user">Пользователь</param>
+             <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.UserController.Update(projectAPI.Contracts.User.GetUserResponse)">
+             <summary>
+             Изменение информации о пользователе
+             </summary>
+             <remarks>
+             Пример запроса:
+             
+                 PUT /Todo
+                 {
+                     "userId": 10,
+                     "roleId": 2,
+                     "username": "Hukkatir",
+                     "userPassword": "12345",
+                     "email": "Hukkatir@gmail.com",
+                     "firstName": "Иван",
+                     "lastName": "Иванов",
+                     "dateOfBirth": "2024-12-16T09:30:58.178Z",
+                     "createdDateTime": "2024-10-10T09:30:58.178Z",
+                     "updatedBy": 1,
+                     "updatedDateTime": "2024-11-01T09:32:18.238Z",
+                     "deletedBy": null,
+                     "deletedDateTime": null
+                 }
+            
+             </remarks>
+             <param name="user">Пользователь</param>
+             <returns></returns>
+        </member>
+        <member name="M:projectAPI.Controllers.UserController.Delete(System.Int32)">
+            <summary>
+            Удаление данных пользователя по id
+            </summary>
+            <param name="id">Идентификатор пользователя</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
