@@ -5,9 +5,9 @@ namespace Domain.Models
 {
     public partial class RoomsUser
     {
-        public DateTime JoinedDateTime { get; set; }
         public int RoomId { get; set; }
         public int UserId { get; set; }
+        public DateTime JoinedDateTime { get; set; }
 
         public virtual Room Room { get; set; } = null!;
         public virtual User User { get; set; } = null!;

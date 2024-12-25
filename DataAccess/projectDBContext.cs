@@ -42,7 +42,7 @@ namespace Domain.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-CJMJ3I2;Database=projectDB; Trusted_Connection = True;");
+                optionsBuilder.UseSqlServer("Server = DESKTOP-CJMJ3I2; Database = projectDBWork; Integrated Security = True;");
             }
         }
 
@@ -61,15 +61,15 @@ namespace Domain.Models
             {
                 entity.ToTable("CategoryFile");
 
-                entity.Property(e => e.CategoryFileId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("CategoryFileID");
+                entity.Property(e => e.CategoryFileId).HasColumnName("CategoryFileID");
 
                 entity.Property(e => e.CategoryFileName).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Comment>(entity =>
             {
+                entity.HasIndex(e => e.UserId, "IX_Comments_UserID");
+
                 entity.Property(e => e.CommentId).HasColumnName("CommentID");
 
                 entity.Property(e => e.CommentText).HasMaxLength(1000);
@@ -93,6 +93,10 @@ namespace Domain.Models
 
             modelBuilder.Entity<CommentRate>(entity =>
             {
+                entity.HasIndex(e => e.CommentId, "IX_CommentRates_CommentID");
+
+                entity.HasIndex(e => e.UserId, "IX_CommentRates_UserID");
+
                 entity.Property(e => e.CommentRateId).HasColumnName("CommentRateID");
 
                 entity.Property(e => e.CommentId).HasColumnName("CommentID");
@@ -122,6 +126,14 @@ namespace Domain.Models
             modelBuilder.Entity<Content>(entity =>
             {
                 entity.ToTable("Content");
+
+                entity.HasIndex(e => e.CategoryContentId, "IX_Content_CategoryContentID");
+
+                entity.HasIndex(e => e.CreatedBy, "IX_Content_CreatedBy");
+
+                entity.HasIndex(e => e.DeletedBy, "IX_Content_DeletedBy");
+
+                entity.HasIndex(e => e.UpdatedBy, "IX_Content_UpdatedBy");
 
                 entity.HasIndex(e => e.MediaId, "IX_Relationship13");
 
@@ -177,6 +189,14 @@ namespace Domain.Models
             modelBuilder.Entity<File>(entity =>
             {
                 entity.ToTable("File");
+
+                entity.HasIndex(e => e.CategoryFileId, "IX_File_CategoryFileID");
+
+                entity.HasIndex(e => e.CreatedBy, "IX_File_CreatedBy");
+
+                entity.HasIndex(e => e.DeletedBy, "IX_File_DeletedBy");
+
+                entity.HasIndex(e => e.UpdatedBy, "IX_File_UpdatedBy");
 
                 entity.Property(e => e.FileId).HasColumnName("FileID");
 
@@ -250,6 +270,8 @@ namespace Domain.Models
 
                             j.ToTable("RelatedMedia");
 
+                            j.HasIndex(new[] { "MediaId" }, "IX_RelatedMedia_MediaID");
+
                             j.IndexerProperty<int>("GroupId").HasColumnName("GroupID");
 
                             j.IndexerProperty<int>("MediaId").HasColumnName("MediaID");
@@ -262,6 +284,8 @@ namespace Domain.Models
                     .HasName("PK__MoviesFi__54324C2672BE071C");
 
                 entity.ToTable("MediaFile");
+
+                entity.HasIndex(e => e.FileId, "IX_MediaFile_FileID");
 
                 entity.Property(e => e.MediaId).HasColumnName("MediaID");
 
@@ -288,15 +312,21 @@ namespace Domain.Models
             {
                 entity.Property(e => e.MediaTypeId).HasColumnName("MediaTypeID");
 
-                entity.Property(e => e.MediaTypeName)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.MediaTypeName).HasMaxLength(100);
             });
 
             modelBuilder.Entity<Medium>(entity =>
             {
                 entity.HasKey(e => e.MediaId)
                     .HasName("PK__Media__B2C2B5AFF301C78A");
+
+                entity.HasIndex(e => e.CreatedBy, "IX_Media_CreatedBy");
+
+                entity.HasIndex(e => e.DeletedBy, "IX_Media_DeletedBy");
+
+                entity.HasIndex(e => e.MediaTypeId, "IX_Media_MediaTypeID");
+
+                entity.HasIndex(e => e.UpdatedBy, "IX_Media_UpdatedBy");
 
                 entity.Property(e => e.MediaId).HasColumnName("MediaID");
 
@@ -354,6 +384,8 @@ namespace Domain.Models
 
                             j.ToTable("CommentMedia");
 
+                            j.HasIndex(new[] { "CommentId" }, "IX_CommentMedia_CommentID");
+
                             j.IndexerProperty<int>("MediaId").HasColumnName("MediaID");
 
                             j.IndexerProperty<int>("CommentId").HasColumnName("CommentID");
@@ -371,6 +403,8 @@ namespace Domain.Models
 
                             j.ToTable("MediaGenres");
 
+                            j.HasIndex(new[] { "GenreId" }, "IX_MediaGenres_GenreID");
+
                             j.IndexerProperty<int>("MediaId").HasColumnName("MediaID");
 
                             j.IndexerProperty<int>("GenreId").HasColumnName("GenreID");
@@ -383,6 +417,14 @@ namespace Domain.Models
                     .HasName("PK__Messages__C87C037CCA0314D6");
 
                 entity.ToTable("Messages_users");
+
+                entity.HasIndex(e => e.DeletedBy, "IX_Messages_users_DeletedBy");
+
+                entity.HasIndex(e => e.RoomId, "IX_Messages_users_RoomID");
+
+                entity.HasIndex(e => e.StatusMessageId, "IX_Messages_users_StatusMessageID");
+
+                entity.HasIndex(e => e.UserId, "IX_Messages_users_UserID");
 
                 entity.Property(e => e.MessageId).HasColumnName("MessageID");
 
@@ -428,6 +470,10 @@ namespace Domain.Models
             {
                 entity.HasKey(e => e.RatingId)
                     .HasName("PK__MyRating__FCCDF85CB1473DD3");
+
+                entity.HasIndex(e => e.MediaId, "IX_MyRatings_MediaID");
+
+                entity.HasIndex(e => e.UserId, "IX_MyRatings_UserID");
 
                 entity.Property(e => e.RatingId).HasColumnName("RatingID");
 
@@ -479,6 +525,8 @@ namespace Domain.Models
             {
                 entity.HasKey(e => new { e.PaymentId, e.UserId });
 
+                entity.HasIndex(e => e.UserId, "IX_PaymentUsers_UserID");
+
                 entity.Property(e => e.PaymentId).HasColumnName("PaymentID");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
@@ -500,13 +548,17 @@ namespace Domain.Models
             {
                 entity.Property(e => e.RoleId).HasColumnName("RoleID");
 
-                entity.Property(e => e.RoleName)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.RoleName).HasMaxLength(255);
             });
 
             modelBuilder.Entity<Room>(entity =>
             {
+                entity.HasIndex(e => e.CreatorId, "IX_Rooms_CreatorID");
+
+                entity.HasIndex(e => e.DeletedBy, "IX_Rooms_DeletedBy");
+
+                entity.HasIndex(e => e.MediaId, "IX_Rooms_MediaID");
+
                 entity.Property(e => e.RoomId)
                     .ValueGeneratedNever()
                     .HasColumnName("RoomID");
@@ -546,6 +598,8 @@ namespace Domain.Models
             {
                 entity.HasKey(e => new { e.UserId, e.RoomId });
 
+                entity.HasIndex(e => e.RoomId, "IX_RoomsUsers_RoomID");
+
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.Property(e => e.RoomId).HasColumnName("RoomID");
@@ -576,6 +630,8 @@ namespace Domain.Models
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.HasIndex(e => e.RoleId, "IX_Users_RoleID");
+
                 entity.HasIndex(e => e.Username, "UQ__Users__536C85E47D398155")
                     .IsUnique();
 

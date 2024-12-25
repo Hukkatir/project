@@ -26,7 +26,8 @@ namespace DataAccess.Migrations
                 name: "CategoryFile",
                 columns: table => new
                 {
-                    CategoryFileID = table.Column<int>(type: "int", nullable: false),
+                    CategoryFileID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryFileName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -66,7 +67,7 @@ namespace DataAccess.Migrations
                 {
                     MediaTypeID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MediaTypeName = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false)
+                    MediaTypeName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,7 +94,7 @@ namespace DataAccess.Migrations
                 {
                     RoleID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleName = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false)
+                    RoleName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {

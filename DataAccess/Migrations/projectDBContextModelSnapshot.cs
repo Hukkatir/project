@@ -35,7 +35,7 @@ namespace DataAccess.Migrations
                     b.HasKey("MediaId", "CommentId")
                         .HasName("PK__CommentM__0EF9F855E39D6785");
 
-                    b.HasIndex("CommentId");
+                    b.HasIndex(new[] { "CommentId" }, "IX_CommentMedia_CommentID");
 
                     b.ToTable("CommentMedia", (string)null);
                 });
@@ -62,8 +62,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.Models.CategoryFile", b =>
                 {
                     b.Property<int>("CategoryFileId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("CategoryFileID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryFileId"), 1L, 1);
 
                     b.Property<string>("CategoryFileName")
                         .IsRequired()
@@ -106,7 +109,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("CommentId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex(new[] { "UserId" }, "IX_Comments_UserID");
 
                     b.ToTable("Comments");
                 });
@@ -144,9 +147,9 @@ namespace DataAccess.Migrations
 
                     b.HasKey("CommentRateId");
 
-                    b.HasIndex("CommentId");
+                    b.HasIndex(new[] { "CommentId" }, "IX_CommentRates_CommentID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex(new[] { "UserId" }, "IX_CommentRates_UserID");
 
                     b.ToTable("CommentRates");
                 });
@@ -204,13 +207,13 @@ namespace DataAccess.Migrations
 
                     b.HasKey("ContentId");
 
-                    b.HasIndex("CategoryContentId");
+                    b.HasIndex(new[] { "CategoryContentId" }, "IX_Content_CategoryContentID");
 
-                    b.HasIndex("CreatedBy");
+                    b.HasIndex(new[] { "CreatedBy" }, "IX_Content_CreatedBy");
 
-                    b.HasIndex("DeletedBy");
+                    b.HasIndex(new[] { "DeletedBy" }, "IX_Content_DeletedBy");
 
-                    b.HasIndex("UpdatedBy");
+                    b.HasIndex(new[] { "UpdatedBy" }, "IX_Content_UpdatedBy");
 
                     b.HasIndex(new[] { "MediaId" }, "IX_Relationship13");
 
@@ -263,13 +266,13 @@ namespace DataAccess.Migrations
 
                     b.HasKey("FileId");
 
-                    b.HasIndex("CategoryFileId");
+                    b.HasIndex(new[] { "CategoryFileId" }, "IX_File_CategoryFileID");
 
-                    b.HasIndex("CreatedBy");
+                    b.HasIndex(new[] { "CreatedBy" }, "IX_File_CreatedBy");
 
-                    b.HasIndex("DeletedBy");
+                    b.HasIndex(new[] { "DeletedBy" }, "IX_File_DeletedBy");
 
-                    b.HasIndex("UpdatedBy");
+                    b.HasIndex(new[] { "UpdatedBy" }, "IX_File_UpdatedBy");
 
                     b.ToTable("File", (string)null);
                 });
@@ -336,7 +339,7 @@ namespace DataAccess.Migrations
                     b.HasKey("MediaId", "MediaFileId", "FileId")
                         .HasName("PK__MoviesFi__54324C2672BE071C");
 
-                    b.HasIndex("FileId");
+                    b.HasIndex(new[] { "FileId" }, "IX_MediaFile_FileID");
 
                     b.ToTable("MediaFile", (string)null);
                 });
@@ -353,8 +356,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("MediaTypeName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("MediaTypeId");
 
@@ -423,13 +425,13 @@ namespace DataAccess.Migrations
                     b.HasKey("MediaId")
                         .HasName("PK__Media__B2C2B5AFF301C78A");
 
-                    b.HasIndex("CreatedBy");
+                    b.HasIndex(new[] { "CreatedBy" }, "IX_Media_CreatedBy");
 
-                    b.HasIndex("DeletedBy");
+                    b.HasIndex(new[] { "DeletedBy" }, "IX_Media_DeletedBy");
 
-                    b.HasIndex("MediaTypeId");
+                    b.HasIndex(new[] { "MediaTypeId" }, "IX_Media_MediaTypeID");
 
-                    b.HasIndex("UpdatedBy");
+                    b.HasIndex(new[] { "UpdatedBy" }, "IX_Media_UpdatedBy");
 
                     b.ToTable("Media");
                 });
@@ -475,13 +477,13 @@ namespace DataAccess.Migrations
                     b.HasKey("MessageId")
                         .HasName("PK__Messages__C87C037CCA0314D6");
 
-                    b.HasIndex("DeletedBy");
+                    b.HasIndex(new[] { "DeletedBy" }, "IX_Messages_users_DeletedBy");
 
-                    b.HasIndex("RoomId");
+                    b.HasIndex(new[] { "RoomId" }, "IX_Messages_users_RoomID");
 
-                    b.HasIndex("StatusMessageId");
+                    b.HasIndex(new[] { "StatusMessageId" }, "IX_Messages_users_StatusMessageID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex(new[] { "UserId" }, "IX_Messages_users_UserID");
 
                     b.ToTable("Messages_users", (string)null);
                 });
@@ -520,9 +522,9 @@ namespace DataAccess.Migrations
                     b.HasKey("RatingId")
                         .HasName("PK__MyRating__FCCDF85CB1473DD3");
 
-                    b.HasIndex("MediaId");
+                    b.HasIndex(new[] { "MediaId" }, "IX_MyRatings_MediaID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex(new[] { "UserId" }, "IX_MyRatings_UserID");
 
                     b.ToTable("MyRatings");
                 });
@@ -569,7 +571,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("PaymentId", "UserId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex(new[] { "UserId" }, "IX_PaymentUsers_UserID");
 
                     b.ToTable("PaymentUsers");
                 });
@@ -586,8 +588,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("RoleName")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("RoleId");
 
@@ -627,11 +628,11 @@ namespace DataAccess.Migrations
 
                     b.HasKey("RoomId");
 
-                    b.HasIndex("CreatorId");
+                    b.HasIndex(new[] { "CreatorId" }, "IX_Rooms_CreatorID");
 
-                    b.HasIndex("DeletedBy");
+                    b.HasIndex(new[] { "DeletedBy" }, "IX_Rooms_DeletedBy");
 
-                    b.HasIndex("MediaId");
+                    b.HasIndex(new[] { "MediaId" }, "IX_Rooms_MediaID");
 
                     b.ToTable("Rooms");
                 });
@@ -651,7 +652,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("UserId", "RoomId");
 
-                    b.HasIndex("RoomId");
+                    b.HasIndex(new[] { "RoomId" }, "IX_RoomsUsers_RoomID");
 
                     b.ToTable("RoomsUsers");
                 });
@@ -735,7 +736,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("UserId");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex(new[] { "RoleId" }, "IX_Users_RoleID");
 
                     b.HasIndex(new[] { "Username" }, "UQ__Users__536C85E47D398155")
                         .IsUnique();
@@ -759,7 +760,7 @@ namespace DataAccess.Migrations
                     b.HasKey("MediaId", "GenreId")
                         .HasName("PK__MediaGen__42FAE5FA05E52893");
 
-                    b.HasIndex("GenreId");
+                    b.HasIndex(new[] { "GenreId" }, "IX_MediaGenres_GenreID");
 
                     b.ToTable("MediaGenres", (string)null);
                 });
@@ -776,7 +777,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("GroupId", "MediaId");
 
-                    b.HasIndex("MediaId");
+                    b.HasIndex(new[] { "MediaId" }, "IX_RelatedMedia_MediaID");
 
                     b.ToTable("RelatedMedia", (string)null);
                 });
