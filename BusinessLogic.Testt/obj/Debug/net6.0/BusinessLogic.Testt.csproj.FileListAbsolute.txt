@@ -455,3 +455,5 @@ C:\Users\dudin\OneDrive\Документы\project\BusinessLogic.Testt\obj\Debug
 C:\Users\dudin\OneDrive\Документы\project\BusinessLogic.Testt\obj\Debug\net6.0\BusinessLogic.Testt.pdb
 C:\Users\dudin\OneDrive\Документы\project\BusinessLogic.Testt\obj\Debug\net6.0\BusinessLogic.Testt.genruntimeconfig.cache
 C:\Users\dudin\OneDrive\Документы\project\BusinessLogic.Testt\obj\Debug\net6.0\ref\BusinessLogic.Testt.dll
+C:\Users\dudin\OneDrive\Документы\project\BusinessLogic.Testt\bin\Debug\net6.0\DataAccess.dll
+C:\Users\dudin\OneDrive\Документы\project\BusinessLogic.Testt\bin\Debug\net6.0\DataAccess.pdb
