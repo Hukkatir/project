@@ -30,3 +30,26 @@ h1:focus {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+
+    .custom-card {
+        max-width: 250px; /* Уменьшаем ширину карточки */
+        margin: 0 auto; /* Центрируем карточку */
+    }
+    
+    .custom-card img {
+        height: 150px; /* Фиксированная высота изображения */
+        object-fit: cover; /* Сохраняем пропорции изображения */
+    }
+    
+    .custom-card .card-body {
+        padding: 0.5rem; /* Уменьшаем отступы внутри карточки */
+    }
+    
+    .custom-card .card-title {
+        font-size: 1rem; /* Уменьшаем размер заголовка */
+    }
+    
+    .custom-card .card-text {
+        font-size: 0.875rem; /* Уменьшаем размер текста */
+    }

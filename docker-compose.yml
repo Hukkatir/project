@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
   webapi:
-    image: ${DOCKER_REGISTRY-}webapi4
+    image: ${DOCKER_REGISTRY-}webapi
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -19,6 +19,18 @@ services:
     environment:
       - "SA_PASSWORD=Password_123"
       - "ACCEPT_EULA=Y"
-    container_name: mssql4
+    container_name: mssql
     ports:
       - "1555:1433"
+  client:
+    image: ${DOCKER_REGISTRY-}blazor
+    build:
+      context: ./BlazorClient
+      dockerfile: ./Dockerfile
+    environment:
+      - API_URL=http://webapi:5000
+      - CLIENT_ENVIRONMENT=Development
+    ports:
+      - "3000:80"
+    depends_on:
+      - webapi

@@ -20,22 +20,27 @@
         </div>
     </div>
 </nav>
-
 <div class="container mt-4">
     <h2>Все фильмы</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        @if (movies == null)
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        @if (movies == null || files == null)
         {
             <p>Загрузка...</p>
+        }
+        else if (!movies.Any())
+        {
+            <p>Фильмы не найдены.</p>
         }
         else
         {
             @foreach (var movie in movies)
             {
+                var posterUrl = files.FirstOrDefault(f => f.FileId == movie.MediaId)?.FileUrl;
                 <div class="col">
                     <div class="card h-100">
                         <a href="/movie/@movie.MediaId">
-                            @* <img src="@mediafile.PosterUrl" class="card-img-top" alt="@movie.Title"> *@
+                            <img src="@(posterUrl ?? "https://via.placeholder.com/300x450")" class="card-img-top"
+                                alt="@movie.Title">
                         </a>
                         <div class="card-body">
                             <h5 class="card-title">@movie.Title</h5>
@@ -48,16 +53,25 @@
     </div>
 </div>
 
-
 @code {
     private List<GetMediumResponse> movies;
-    private List<MediaFileDto> mediafile;
+    private List<GetFileResponse> files;
+
     protected override async Task OnInitializedAsync()
     {
-        movies = await Http.GetFromJsonAsync<List<GetMediumResponse>>("api/Medium");
-        mediafile = await Http.GetFromJsonAsync<List<MediaFileDto>>("api/MediaFile");
-    }
+        try
+        {
+            // Загружаем данные о фильмах
+            movies = await Http.GetFromJsonAsync<List<GetMediumResponse>>("api/Medium");
 
+            // Загружаем данные о файлах
+            files = await Http.GetFromJsonAsync<List<GetFileResponse>>("api/File");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ошибка при загрузке данных: {ex.Message}");
+        }
+    }
 
     public class GetMediumResponse
     {
@@ -74,14 +88,15 @@
         public DateTime CreatedDateTime { get; set; }
     }
 
-
-
-
-    public class MediaFileDto
+    public class GetFileResponse
     {
-        public int MediaId { get; set; }
-        public string Title { get; set; }
-        public DateTime ReleaseDate { get; set; }
-        public string PosterUrl { get; set; }
+        public int FileId { get; set; }
+        public string FileName { get; set; }
+        public string FileUrl { get; set; }
+        public int CategoryFileId { get; set; }
+        public int CreatedBy { get; set; }
+        public DateTime CreatedDateTime { get; set; }
+        public int? UpdatedBy { get; set; }
+        public DateTime? UpdatedDateTime { get; set; }
     }
 }
