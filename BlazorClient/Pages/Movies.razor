@@ -1,38 +1,61 @@
 @page "/movies"
 @inject HttpClient Http
 
-@if (movies == null)
-{
-    <p>Загрузка...</p>
-}
-else
-{
-    <div class="row">
-        @foreach (var movie in movies)
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Кинополис</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/categories">Категории</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/movies">Фильмы</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h2>Все фильмы</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @if (movies == null)
         {
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">@movie.Title</h5>
-                        <p class="card-text">
-                            <strong>Дата выхода:</strong> @movie.ReleaseDate.ToShortDateString()<br />
-                            <strong>Описание:</strong> @movie.Plot<br />
-                            <strong>Рейтинг IMDb:</strong> @movie.ImdbRating<br />
-                            <strong>Продолжительность:</strong> @movie.Runtime мин.
-                        </p>
+            <p>Загрузка...</p>
+        }
+        else
+        {
+            @foreach (var movie in movies)
+            {
+                <div class="col">
+                    <div class="card h-100">
+                        <a href="/movie/@movie.MediaId">
+                            @* <img src="@mediafile.PosterUrl" class="card-img-top" alt="@movie.Title"> *@
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">@movie.Title</h5>
+                            <p class="card-text">@movie.ReleaseDate.Year</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         }
     </div>
-}
+</div>
+
 
 @code {
     private List<GetMediumResponse> movies;
-
+    private List<MediaFileDto> mediafile;
     protected override async Task OnInitializedAsync()
     {
         movies = await Http.GetFromJsonAsync<List<GetMediumResponse>>("api/Medium");
+        mediafile = await Http.GetFromJsonAsync<List<MediaFileDto>>("api/MediaFile");
     }
 
 
@@ -49,5 +72,16 @@ else
         public int MediaTypeId { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDateTime { get; set; }
+    }
+
+
+
+
+    public class MediaFileDto
+    {
+        public int MediaId { get; set; }
+        public string Title { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public string PosterUrl { get; set; }
     }
 }
