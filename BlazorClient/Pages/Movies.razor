@@ -1,65 +1,72 @@
 @page "/movie/{MediaId:int}"
 @inject HttpClient Http
+@inject IJSRuntime JSRuntime
 
-<nav class="py-3 navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
-    <div class="container">
-        <a class="navbar-brand fs-3 fw-bold" href="/">КиноПолис</a>
+@if (!isLoading)
+{
+    <nav class="py-3 navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm mb-5">
+        <div class="container">
+            <a class="navbar-brand fs-3 fw-bold" href="/">КиноПолис</a>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link fs-5" href="/movies">Фильмы</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link fs-5" href="/categories">Категории</a>
-                </li>
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active fs-5" aria-current="page" href="/">Фильмы</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
-<div class="container mt-5 pt-5">
-    <div class="container mt-2">
+    </nav>
+
+
+    <div class="container mt-5 pt-5">
         <div class="mb-4">
             <a href="/" class="btn btn-black">
                 <i class="bi bi-arrow-left"></i>
             </a>
         </div>
+
         <div class="row">
             <div class="col-md-4">
                 <img src="@(posterUrl ?? "https://via.placeholder.com/300x450")" class="img-fluid rounded shadow"
-                    alt="@movie?.Title">
+                    alt="@movie.Title">
             </div>
 
             <div class="col-md-8">
-                <h1 class="mb-3">@movie?.Title</h1>
-                <p><strong>Год выпуска:</strong> @movie?.ReleaseDate.Year</p>
-                <p><strong>Рейтинг IMDb:</strong> @movie?.ImdbRating</p>
-                <p><strong>Длительность:</strong> @movie?.Runtime мин.</p>
+                <h1 class="mb-3">@movie.Title</h1>
+                <p><strong>Год выпуска:</strong> @movie.ReleaseDate.Year</p>
+                <p><strong>Рейтинг IMDb:</strong> @movie.ImdbRating</p>
+                <p><strong>Длительность:</strong> @movie.Runtime мин.</p>
 
-                @if (movie?.Season > 0)
+                @if (movie.Season > 0)
                 {
                     <p><strong>Сезон:</strong> @movie.Season</p>
                 }
 
-                @if (movie?.Episode > 0)
+                @if (movie.Episode > 0)
                 {
                     <p><strong>Эпизод:</strong> @movie.Episode</p>
                 }
 
+
                 <div class="mt-4">
                     <h4>Описание</h4>
-                    <p class="lead">@movie?.Plot</p>
+                    <p class="lead">@movie.Plot</p>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<footer class="bg-dark text-white py-4 mt-5">
-    <div class="container text-center">
-        <p>&copy; 2024 КиноПолис. Все права защищены.</p>
-    </div>
-</footer>
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p> 2024 КиноПолис. Все права защищены.</p>
+        </div>
+    </footer>
+}
+else
+{
+    <div id="lottie-animation" style="width: 300px; height: 300px; margin: 0 auto;"></div>
+}
 
 @code {
     [Parameter]
@@ -67,15 +74,33 @@
 
     private GetMediumResponse movie;
     private string posterUrl;
+    private bool isLoading = true;
 
     protected override async Task OnInitializedAsync()
     {
-        // Загрузка данных о фильме
-        movie = await Http.GetFromJsonAsync<GetMediumResponse>($"api/Medium/{MediaId}");
+        try
+        {
+            movie = await Http.GetFromJsonAsync<GetMediumResponse>($"api/Medium/{MediaId}");
 
-        // Загрузка постера
-        var files = await Http.GetFromJsonAsync<List<GetFileResponse>>("api/File");
-        posterUrl = files.FirstOrDefault(f => f.FileId == movie.MediaId)?.FileUrl;
+            var files = await Http.GetFromJsonAsync<List<GetFileResponse>>("api/File");
+            posterUrl = files?.FirstOrDefault(f => f.FileId == movie.MediaId)?.FileUrl;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Ошибка при загрузке данных: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && isLoading)
+        {
+            await JSRuntime.InvokeVoidAsync("initializeLottieAnimation");
+        }
     }
 
     public class GetMediumResponse

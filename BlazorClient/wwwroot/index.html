@@ -3,44 +3,17 @@
 
 <head>
     <meta charset="utf-8" />
+    <base href="/" /> 
     <title>КиноПолис</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet" />
+    
+ 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.4/lottie.min.js"></script>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%; 
-            display: flex;
-            justify-content: center; 
-            align-items: center; 
-        }
-
-        #lottie-animation {
-            width: 300px;
-            height: 300px;
-        }
-    </style>
-</head>
-
-<body>
-    <div id="app">
-        <div id="lottie-animation"></div>
-    </div>
-
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <script src="_framework/blazor.webassembly.js"></script>
-
+    
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        function initializeLottieAnimation() {
             const animationContainer = document.getElementById('lottie-animation');
             if (animationContainer) {
                 lottie.loadAnimation({
@@ -48,11 +21,23 @@
                     renderer: 'svg',
                     loop: true,
                     autoplay: true,
-                    path: '/Animation.json' // Укажите путь к вашему JSON-файлу
+                    path: 'Animation.json' 
                 });
             }
-        });
+        }
     </script>
+
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="/_framework/blazor.webassembly.js"></script> 
 </body>
 
 </html>

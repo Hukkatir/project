@@ -1,65 +1,98 @@
 ﻿@page "/"
 @inject HttpClient Http
+@inject IJSRuntime JSRuntime
 
-<nav class="py-3 navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm mb-5">
-    <div class="container">
-        <a class="navbar-brand fs-3 fw-bold" href="/">КиноПолис</a>
+@if (isLoading)
+{
+    <div id="lottie-animation" style="width: 300px; height: 300px; margin: 0 auto;"></div>
+}
+else
+{
+    <nav class="py-3 navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm mb-5">
+        <div class="container">
+            <a class="navbar-brand fs-3 fw-bold" href="/">КиноПолис</a>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active fs-5" aria-current="page" href="/movies">Фильмы</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link fs-5" href="/categories">Категории</a>
-                </li>
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active fs-5" aria-current="page" href="/">Фильмы</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<div class="container mt-4 pt-5 mb-5">
-    <h2 class="text-center mb-4 mt-4">Все фильмы</h2>
-    <div class="row row-cols-1 row-cols-md-5 g-3">
-        @foreach (var movie in movies)
+    <div class="container mt-4 pt-5 mb-5">
+        <h2 class="text-center mb-4 mt-4">Все фильмы</h2>
+
+        @if (!movies.Any())
         {
-            var posterUrl = files.FirstOrDefault(f => f.FileId == movie.MediaId)?.FileUrl;
-            <div class="col">
-                <div class="card">
-                    <a href="/movie/@movie.MediaId">
-                        <img src="@(posterUrl ?? "https://via.placeholder.com/200x300")"
-                            class="card-img-top fixed-size-image" alt="@movie.Title">
-                    </a>
-                    <div class="card-body p-2">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-title mb-0">
-                                <a href="/movie/@movie.MediaId" class="text-decoration-none text-dark">
-                                    @movie.Title <span class="card-text">(@movie.ReleaseDate.Year)</span>
-                                </a>
-                            </h5>
+            <p>Фильмы не найдены.</p>
+        }
+        else
+        {
+            <div class="row row-cols-1 row-cols-md-5 g-3">
+                @foreach (var movie in movies)
+                {
+                    var posterUrl = files.FirstOrDefault(f => f.FileId == movie.MediaId)?.FileUrl;
+                    <div class="col">
+                        <div class="card">
+                            <a href="/movie/@movie.MediaId">
+                                <img src="@(posterUrl ?? "https://via.placeholder.com/200x300")"
+                                    class="card-img-top fixed-size-image" alt="@movie.Title">
+                            </a>
+                            <div class="card-body p-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title mb-0">
+                                        <a href="/movie/@movie.MediaId" class="text-decoration-none text-dark">
+                                            @movie.Title <span class="card-text">(@movie.ReleaseDate.Year)</span>
+                                        </a>
+                                    </h5>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
         }
     </div>
-</div>
-<footer class="bg-dark text-white py-4">
-    <div class="container text-center">
-        <p>&copy; 2024 КиноПолис. Все права защищены.</p>
-    </div>
-</footer>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container-fluid text-center">
+            <p>&copy; 2024 КиноПолис. Все права защищены.</p>
+        </div>
+    </footer>
+}
 
 @code {
     private List<GetMediumResponse> movies;
     private List<GetFileResponse> files;
+    private bool isLoading = true;
 
     protected override async Task OnInitializedAsync()
     {
-        movies = await Http.GetFromJsonAsync<List<GetMediumResponse>>("api/Medium");
-        files = await Http.GetFromJsonAsync<List<GetFileResponse>>("api/File");
+        try
+        {
+            movies = await Http.GetFromJsonAsync<List<GetMediumResponse>>("api/Medium");
+            files = await Http.GetFromJsonAsync<List<GetFileResponse>>("api/File");
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Ошибка при загрузке данных: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && isLoading)
+        {
+            await JSRuntime.InvokeVoidAsync("initializeLottieAnimation");
+        }
+    }
 
     public class GetMediumResponse
     {
