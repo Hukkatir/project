@@ -146,7 +146,9 @@ namespace projectAPI
 
                 if (!context.CategoryFiles.Any())
                 {
-                    context.CategoryFiles.RemoveRange(context.CategoryFiles);
+                    context.ChangeTracker.Clear();
+                    var existingFiles = context.CategoryFiles.AsNoTracking().ToList();
+                    context.CategoryFiles.RemoveRange(existingFiles);
                     context.SaveChanges();
 
                     context.CategoryFiles.AddRange(
