@@ -61,6 +61,11 @@ namespace projectAPI
 
             var app = builder.Build();
 
+            app.UseCors(builder => builder.WithOrigins(new[] { "https://project-kxd1.onrender.com", })
+                 .AllowAnyHeader()
+                 .AllowAnyMethod()
+                 .AllowAnyOrigin());
+
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -185,16 +190,12 @@ namespace projectAPI
                 app.UseSwaggerUI();
             }
 
-            app.UseCors(builder => builder
-                .WithOrigins("https://project-kxd1.onrender.com")
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowAnyOrigin());
 
             app.UseHttpsRedirection();
+            app.UseRouting();
+
             app.UseAuthorization();
             app.MapControllers();
-
             app.Run();
         }
     }
