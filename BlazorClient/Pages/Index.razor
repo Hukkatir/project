@@ -1,93 +1,90 @@
 ﻿@page "/"
+@inject HttpClient Http
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="py-3 navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm mb-5">
     <div class="container">
-        <a class="navbar-brand" href="#">Кинополис</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+        <a class="navbar-brand fs-3 fw-bold" href="/">КиноПолис</a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Главная</a>
+                    <a class="nav-link active fs-5" aria-current="page" href="/movies">Фильмы</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/categories">Категории</a>
+                    <a class="nav-link fs-5" href="/categories">Категории</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- Секция с баннером -->
-<div class="hero-section d-flex align-items-center">
-    <div class="container text-center">
-        <h1 class="display-4">Добро пожаловать на наш кинопортал</h1>
-        <p class="lead">Откройте для себя лучшие фильмы и сериалы</p>
-        <a href="#" class="btn btn-primary btn-lg">Посмотреть фильмы</a>
+<div class="container mt-4 pt-5 mb-5">
+    <h2 class="text-center mb-4 mt-4">Все фильмы</h2>
+    <div class="row row-cols-1 row-cols-md-5 g-3">
+        @foreach (var movie in movies)
+        {
+            var posterUrl = files.FirstOrDefault(f => f.FileId == movie.MediaId)?.FileUrl;
+            <div class="col">
+                <div class="card">
+                    <a href="/movie/@movie.MediaId">
+                        <img src="@(posterUrl ?? "https://via.placeholder.com/200x300")"
+                            class="card-img-top fixed-size-image" alt="@movie.Title">
+                    </a>
+                    <div class="card-body p-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">
+                                <a href="/movie/@movie.MediaId" class="text-decoration-none text-dark">
+                                    @movie.Title <span class="card-text">(@movie.ReleaseDate.Year)</span>
+                                </a>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
-
-<!-- Список категорий -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <h2 class="text-center mb-5">Популярные категории</h2>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card category-card">
-                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Категория 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Боевики</h5>
-                        <p class="card-text">Лучшие фильмы с экшеном и динамикой.</p>
-                        <a href="#" class="btn btn-primary">Подробнее</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card category-card">
-                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Категория 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Комедии</h5>
-                        <p class="card-text">Смешные фильмы для хорошего настроения.</p>
-                        <a href="#" class="btn btn-primary">Подробнее</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card category-card">
-                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Категория 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Фантастика</h5>
-                        <p class="card-text">Фильмы с невероятными сюжетами.</p>
-                        <a href="#" class="btn btn-primary">Подробнее</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Футер -->
 <footer class="bg-dark text-white py-4">
     <div class="container text-center">
         <p>&copy; 2024 КиноПолис. Все права защищены.</p>
     </div>
 </footer>
 
-<style>
-    .hero-section {
-        background: url('https://via.placeholder.com/1920x600') no-repeat center center/cover;
-        height: 600px;
-        color: white;
+@code {
+    private List<GetMediumResponse> movies;
+    private List<GetFileResponse> files;
+
+    protected override async Task OnInitializedAsync()
+    {
+        movies = await Http.GetFromJsonAsync<List<GetMediumResponse>>("api/Medium");
+        files = await Http.GetFromJsonAsync<List<GetFileResponse>>("api/File");
     }
 
-    .category-card {
-        height: 100%;
-        transition: transform 0.3s;
+
+    public class GetMediumResponse
+    {
+        public int MediaId { get; set; }
+        public string Title { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public string Plot { get; set; }
+        public int Runtime { get; set; }
+        public double ImdbRating { get; set; }
+        public int Season { get; set; }
+        public int Episode { get; set; }
+        public int MediaTypeId { get; set; }
+        public int CreatedBy { get; set; }
+        public DateTime CreatedDateTime { get; set; }
     }
 
-    .category-card:hover {
-        transform: scale(1.05);
+    public class GetFileResponse
+    {
+        public int FileId { get; set; }
+        public string FileName { get; set; }
+        public string FileUrl { get; set; }
+        public int CategoryFileId { get; set; }
+        public int CreatedBy { get; set; }
+        public DateTime CreatedDateTime { get; set; }
+        public int? UpdatedBy { get; set; }
+        public DateTime? UpdatedDateTime { get; set; }
     }
-</style>
+}

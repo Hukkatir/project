@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "K3CZYbmE34BSKPqUU1nlyOiA+QZ6a9K+ccMHCAh7djg=",
+  "Hash": "5eHd4ejGKHcN02yW+HOJXuvVnq1bJf95r3DX57zIOq8=",
   "Source": "BlazorClient",
   "BasePath": "/",
   "Mode": "Root",
@@ -6866,6 +6866,23 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "C:\\Users\\dudin\\OneDrive\\Документы\\project\\BlazorClient\\bin\\Debug\\net7.0\\wwwroot\\_framework\\System.Net.ServicePoint.dll"
+    },
+    {
+      "Identity": "C:\\Users\\dudin\\OneDrive\\Документы\\project\\BlazorClient\\wwwroot\\Animation.json",
+      "SourceId": "BlazorClient",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\dudin\\OneDrive\\Документы\\project\\BlazorClient\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "Animation.json",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Animation.json"
     },
     {
       "Identity": "C:\\Users\\dudin\\OneDrive\\Документы\\project\\BlazorClient\\wwwroot\\css\\app.css",
