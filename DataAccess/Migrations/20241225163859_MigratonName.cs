@@ -52,7 +52,8 @@ namespace DataAccess.Migrations
                 name: "GroupMedia",
                 columns: table => new
                 {
-                    GroupID = table.Column<int>(type: "int", nullable: false),
+                    GroupID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     GroupName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     GroupDescrip = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false)
                 },
@@ -78,7 +79,8 @@ namespace DataAccess.Migrations
                 name: "Payment",
                 columns: table => new
                 {
-                    PaymentID = table.Column<int>(type: "int", nullable: false),
+                    PaymentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CardNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CVV = table.Column<string>(type: "char(3)", unicode: false, fixedLength: true, maxLength: 3, nullable: false),
                     Date = table.Column<DateTime>(type: "date", nullable: false)
@@ -378,7 +380,8 @@ namespace DataAccess.Migrations
                 name: "MediaFile",
                 columns: table => new
                 {
-                    MediaFileID = table.Column<int>(type: "int", nullable: false),
+                    MediaFileID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     MediaID = table.Column<int>(type: "int", nullable: false),
                     FileID = table.Column<int>(type: "int", nullable: false),
                     MediaFileName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
@@ -474,7 +477,8 @@ namespace DataAccess.Migrations
                 name: "Rooms",
                 columns: table => new
                 {
-                    RoomID = table.Column<int>(type: "int", nullable: false),
+                    RoomID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RoomName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     MediaID = table.Column<int>(type: "int", nullable: false),
                     CreatorID = table.Column<int>(type: "int", nullable: false),

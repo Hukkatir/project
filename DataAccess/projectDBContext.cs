@@ -250,9 +250,7 @@ namespace Domain.Models
             {
                 entity.HasKey(e => e.GroupId);
 
-                entity.Property(e => e.GroupId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("GroupID");
+                entity.Property(e => e.GroupId).HasColumnName("GroupID");
 
                 entity.Property(e => e.GroupDescrip).HasMaxLength(1000);
 
@@ -289,7 +287,9 @@ namespace Domain.Models
 
                 entity.Property(e => e.MediaId).HasColumnName("MediaID");
 
-                entity.Property(e => e.MediaFileId).HasColumnName("MediaFileID");
+                entity.Property(e => e.MediaFileId)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("MediaFileID");
 
                 entity.Property(e => e.FileId).HasColumnName("FileID");
 
@@ -506,9 +506,7 @@ namespace Domain.Models
             {
                 entity.ToTable("Payment");
 
-                entity.Property(e => e.PaymentId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("PaymentID");
+                entity.Property(e => e.PaymentId).HasColumnName("PaymentID");
 
                 entity.Property(e => e.CardNumber).HasMaxLength(50);
 
@@ -559,9 +557,7 @@ namespace Domain.Models
 
                 entity.HasIndex(e => e.MediaId, "IX_Rooms_MediaID");
 
-                entity.Property(e => e.RoomId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("RoomID");
+                entity.Property(e => e.RoomId).HasColumnName("RoomID");
 
                 entity.Property(e => e.CreatedDateTime).HasColumnType("datetime");
 

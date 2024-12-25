@@ -299,8 +299,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.Models.GroupMedium", b =>
                 {
                     b.Property<int>("GroupId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("GroupID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GroupId"), 1L, 1);
 
                     b.Property<string>("GroupDescrip")
                         .IsRequired()
@@ -324,8 +327,11 @@ namespace DataAccess.Migrations
                         .HasColumnName("MediaID");
 
                     b.Property<int>("MediaFileId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("MediaFileID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MediaFileId"), 1L, 1);
 
                     b.Property<int>("FileId")
                         .HasColumnType("int")
@@ -532,8 +538,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.Models.Payment", b =>
                 {
                     b.Property<int>("PaymentId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("PaymentID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentId"), 1L, 1);
 
                     b.Property<string>("CardNumber")
                         .IsRequired()
@@ -598,8 +607,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.Models.Room", b =>
                 {
                     b.Property<int>("RoomId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("RoomID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomId"), 1L, 1);
 
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime");
