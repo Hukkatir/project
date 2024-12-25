@@ -146,6 +146,9 @@ namespace projectAPI
 
                 if (!context.CategoryFiles.Any())
                 {
+                    context.CategoryFiles.RemoveRange(context.CategoryFiles);
+                    context.SaveChanges();
+
                     context.CategoryFiles.AddRange(
                         new CategoryFile { CategoryFileName = "Трейлер" },
                         new CategoryFile { CategoryFileName = "Постер" },
