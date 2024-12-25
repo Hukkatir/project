@@ -77,8 +77,8 @@ namespace projectAPI
                 if (!context.Roles.Any())
                 {
                     context.Roles.AddRange(
-                        new Role { RoleName = "Admin" },
-                        new Role { RoleName = "User" }
+                        new Role { RoleName = "Админ" },
+                        new Role { RoleName = "Пользователь" }
                     );
                     context.SaveChanges();
                 }
@@ -151,11 +151,7 @@ namespace projectAPI
 
                 if (!context.CategoryFiles.Any())
                 {
-                    context.ChangeTracker.Clear();
-                    var existingFiles = context.CategoryFiles.AsNoTracking().ToList();
-                    context.CategoryFiles.RemoveRange(existingFiles);
-                    context.SaveChanges();
-
+                   
                     context.CategoryFiles.AddRange(
                         new CategoryFile { CategoryFileName = "Трейлер" },
                         new CategoryFile { CategoryFileName = "Постер" },
