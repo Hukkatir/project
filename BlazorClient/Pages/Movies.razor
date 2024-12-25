@@ -1,0 +1,53 @@
+@page "/movies"
+@inject HttpClient Http
+
+@if (movies == null)
+{
+    <p>Загрузка...</p>
+}
+else
+{
+    <div class="row">
+        @foreach (var movie in movies)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@movie.Title</h5>
+                        <p class="card-text">
+                            <strong>Дата выхода:</strong> @movie.ReleaseDate.ToShortDateString()<br />
+                            <strong>Описание:</strong> @movie.Plot<br />
+                            <strong>Рейтинг IMDb:</strong> @movie.ImdbRating<br />
+                            <strong>Продолжительность:</strong> @movie.Runtime мин.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<GetMediumResponse> movies;
+
+    protected override async Task OnInitializedAsync()
+    {
+        movies = await Http.GetFromJsonAsync<List<GetMediumResponse>>("api/Medium");
+    }
+
+
+    public class GetMediumResponse
+    {
+        public int MediaId { get; set; }
+        public string Title { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public string Plot { get; set; }
+        public int Runtime { get; set; }
+        public double ImdbRating { get; set; }
+        public int Season { get; set; }
+        public int Episode { get; set; }
+        public int MediaTypeId { get; set; }
+        public int CreatedBy { get; set; }
+        public DateTime CreatedDateTime { get; set; }
+    }
+}

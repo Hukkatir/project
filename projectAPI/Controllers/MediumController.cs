@@ -69,7 +69,7 @@ namespace projectAPI.Controllers
         /// <param name="medium">Медиа</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Add(CreateMediaFileRequest medium)
+        public async Task<IActionResult> Add(CreateMediumRequest medium)
         {
 
             var Dto = medium.Adapt<Medium>();

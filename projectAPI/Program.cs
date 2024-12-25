@@ -69,12 +69,18 @@ namespace projectAPI
 
             }
 
+
             // Configure the HTTP request pipeline.
             /* if (app.Environment.IsDevelopment())*/
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors(builder => builder.WithOrigins(new[] { "https://project-kxd1.onrender.com", })
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin());
 
             app.UseHttpsRedirection();
 
