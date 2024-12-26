@@ -1,8 +1,17 @@
 @page "/movie/{MediaId:int}"
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
+@inject NavigationManager Navigation
 
-@if (!isLoading)
+@if (isLoading)
+{
+    <div id="lottie-animation" style="width: 300px; height: 300px; margin: 0 auto;"></div>
+}
+else if (movie == null)
+{
+    <!-- Ничего не отображаем, так как произойдёт перенаправление -->
+}
+else
 {
     <nav class="py-3 navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm mb-5">
         <div class="container">
@@ -17,7 +26,6 @@
             </div>
         </div>
     </nav>
-
 
     <div class="container mt-5 pt-5">
         <div class="mb-4">
@@ -48,7 +56,6 @@
                     <p><strong>Эпизод:</strong> @movie.Episode</p>
                 }
 
-
                 <div class="mt-4">
                     <h4>Описание</h4>
                     <p class="lead">@movie.Plot</p>
@@ -62,10 +69,6 @@
             <p> 2024 КиноПолис. Все права защищены.</p>
         </div>
     </footer>
-}
-else
-{
-    <div id="lottie-animation" style="width: 300px; height: 300px; margin: 0 auto;"></div>
 }
 
 @code {
@@ -82,12 +85,20 @@ else
         {
             movie = await Http.GetFromJsonAsync<GetMediumResponse>($"api/Medium/{MediaId}");
 
-            var files = await Http.GetFromJsonAsync<List<GetFileResponse>>("api/File");
-            posterUrl = files?.FirstOrDefault(f => f.FileId == movie.MediaId)?.FileUrl;
+            if (movie != null)
+            {
+                var files = await Http.GetFromJsonAsync<List<GetFileResponse>>("api/File");
+                posterUrl = files?.FirstOrDefault(f => f.FileId == movie.MediaId)?.FileUrl;
+            }
+            else
+            {
+                Navigation.NavigateTo("/404", forceLoad: true);
+            }
         }
         catch (Exception ex)
         {
             Console.Error.WriteLine($"Ошибка при загрузке данных: {ex.Message}");
+            Navigation.NavigateTo("/404", forceLoad: true);
         }
         finally
         {
