@@ -1,0 +1,144 @@
+@page "/train"
+
+<div class="snowflakes">
+    @for (int i = 0; i < 50; i++)
+    {
+        <div class="snowflake" style="left: @(new Random().Next(0, 100))vw; animation-duration: @(new Random().Next(5, 15))s;"></div>
+    }
+</div>
+
+<nav class="py-3 navbar navbar-expand-lg navbar-dark bg-new-year fixed-top shadow-sm mb-5">
+    <div class="container">
+        <a class="navbar-brand fs-3 fw-bold" href="/">КиноПолис</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav w-100 mb-2 mb-lg-0">
+                <li class="nav-item mx-auto">
+                    <a class="nav-link active fs-5" aria-current="page" href="/train">Поезд 81-775.2</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4 pt-5 mb-2 w-50">
+    <div class="row">
+        <div class="col text-center mt-5">
+            <img src="https://www.mos.ru/upload/newsfeed/articles/c00866a788d53b43d17bb98ec4eb8c10/9_Poezd_Moskva-2024_Proektnoe_reshenie.jpg" alt="Train 81 775.2" class="img-fluid train-animation" />
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col w-75 mx-auto bg-dark text-white p-3 rounded" style="background-color: #000000">
+            <h2>Характеристики поезда 81-775.2
+                <img src="https://media1.tenor.com/m/vI3s7zVle5AAAAAd/metro-moskvu-metro.gif" alt="Metro GIF" class="img-fluid" style="max-height: 60px;" />
+            </h2>
+            <ul class="list-group">
+                <li class="list-group-item border-secondary"><strong>Модель:</strong> 81-775.2</li>
+                <li class="list-group-item border-secondary"><strong>Производитель:</strong> Метровагонмаш</li>
+                <li class="list-group-item border-secondary"><strong>Годы выпуска:</strong> 2020–н.в.</li>
+                <li class="list-group-item border-secondary"><strong>Максимальная скорость:</strong> 90 км/ч</li>
+                <li class="list-group-item border-secondary"><strong>Количество вагонов:</strong> 6–8</li>
+                <li class="list-group-item border-secondary"><strong>Тип:</strong> Электропоезд</li>
+                <li class="list-group-item border-secondary"><strong>Система управления:</strong> Автоматическая</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mt-5 mb-5">
+        <div class="col w-75 mx-auto bg-dark text-white p-3 rounded" style="background-color: #000000">
+            <h2>Линии, по которым ходит поезд</h2>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <span class="metro-line-circle" style="background-color: rgb(45, 190, 44);">2</span> Замоскворецкая линия
+                </li>
+                <li class="list-group-item">
+                    <span class="metro-line-circle" style="background-color: #03795f;">16</span> Троицкая линия
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<style>
+    @@keyframes fall {
+        to {
+            transform: translateY(100vh);
+        }
+    }
+
+    .snowflake {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: white;
+        border-radius: 50%;
+        filter: blur(1px);
+        animation: fall linear infinite;
+    }
+
+    .snowflakes {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1000;
+    }
+
+    @@keyframes moveTrain {
+        0% {
+            transform: translateX(100vw);
+        }
+        10% {
+            opacity: 1;
+        }
+        90% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(-170%);
+        }
+    }
+
+    .train-animation {
+        animation: moveTrain 5s linear infinite;
+    }
+
+    .bg-new-year {
+        background-color: #1a1a1a;
+        color: #ffffff;
+    }
+
+    @@keyframes blink {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
+    }
+
+    .blink-text {
+        animation: blink 1s infinite;
+    }
+
+    .metro-line-circle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        margin-right: 10px;
+        color: white;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .list-group-item {
+        border: 1px solid #ddd;
+        margin-bottom: 3px;
+        border-radius: 5px;
+    }
+</style>
